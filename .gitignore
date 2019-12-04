@@ -1,3 +1,7 @@
 .vscode/tasks.json
 .vscode/launch.json
 .vscode/c_cpp_properties.json
+.DS_Store
+bin/main
+bin/main.dSYM/Contents/Info.plist
+bin/main.dSYM/Contents/Resources/DWARF/main
