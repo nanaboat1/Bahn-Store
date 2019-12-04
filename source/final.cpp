@@ -1,11 +1,7 @@
 #include <iostream>
-
-
 using namespace std;
 
-
 class  Customer{
-
 public:
     bool authorization; // gives authorization to the customer to buy things from the store 
     double receipt_bill; // stores the total purchase of the customer
@@ -55,15 +51,14 @@ public:
 };
 
 class Stocker{
-
 public:
     bool authorisation;//authorises the functions of this class to be used. 
-    char shelf_select;//check your previous library on how to make small letters capital , check lm8 it might be there.
+    string shelf_select;//check your previous library on how to make small letters capital , check lm8 it might be there.
     bool assistance;//
 
     Stocker(){
         authorisation = false;
-        shelf_select = 'a';
+        shelf_select = "aA";//Default shell value
         assistance = false;
     }
 
@@ -71,15 +66,14 @@ public:
         return authorisation = true;     
     }
 
-    char selectShelf(char shelfplace){
+    string selectShelf(){
         
-        
-    return shelfplace; 
+        cout << "Enter the shelf code ";
+        cin >> shelf_select;    
+        return shelf_select; 
     }
 };
-
-class BusinessAnalytics{//more to add to the code will do that in the comind days 
-
+class BusinessAnalytics{//more to add to the code will do that in the coming days 
 public:
     bool autharise;//authorizes this function to be used. 
     double totalSales;// stores the total purchase made in a day. 
@@ -114,12 +108,47 @@ public:
     }
     /*For the Profits Method, I have to be really critical of this. I will do this after I have found how the code is going to work. */
 };
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//This lists of functions, help correct the Users input of a shelf name, by converting if included lower case letters to Uppercase Letters . 
+ char chartoNum(char ch){
+  if( static_cast<int>(ch)>=48&&static_cast<int>(ch)<58){//returns the numbers if user input are numbers
+    return ch;//returns the ch when the input is a number.
+  }
+  else if(static_cast<int>(ch)>96&&static_cast<int>(ch)<123){//when the input is lower case, we need to convert it to upper case.
 
-
-
-
+    return toupper(ch);//converts it to its upper case character then tranlates it to a phone number. 
+  }
+  else if(static_cast<int>(ch)>=65&&static_cast<int>(ch)<=90){//when the letter is already in upper case.
+    return ch; //When the number is already in upper case it calls dialchartonum to give its corresponding phone number.
+  }
+  return ch = '_';
+}
+string correctshelfName(string shelfname){
+  //The correctshelfName function corrects the users input of the shelf number to the standard format required by the program
+  //to prevent runtime issues.  
+  string standardShelfname = "aa";//stores tesf. //the value inside is an arbitrarily value to prevent error during compile time.   
+  for(int i = 0; i <2; i++){  
+   standardShelfname[i] = chartoNum(shelfname[i]);
+  }
+  return standardShelfname;
+  //The customer class will use the return value when the customer class  is objectisied.
+}
 
 void myStore(){
+    
+    Customer User;// Instantiated the customer class
+    Stocker  Cashier;// Instantiated the Stocker class
+
+    /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the correctshelfName function 
+        and the end result is given to to the sendTocorrectshelfName function. 
+    */  
+    string sendTocorrectshelfName = correctshelfName(Cashier.selectShelf());//The string sendTocorrectshelfName gets the return value of the selectshelf function.
+    cout << sendTocorrectshelfName << endl;
+    //The sendTocorrectshelfName will be used in the ware house at a later date. 
+   
+    
+
+
     /*My store the program is the cashier right .
     And  in the store we have a customer and a stocker
     and a way to print the items in the store nicely and a shelf name so that when the user enters a specific value of the shelf 
@@ -130,7 +159,10 @@ void myStore(){
 
 int main(){
 
+   
+ myStore();
     
+
 
     return 0;
 }
