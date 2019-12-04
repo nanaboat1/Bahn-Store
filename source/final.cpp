@@ -89,7 +89,7 @@ public:
 
     //creating a constructor for the class
     BusinessAnalytics(){
-        autharise = true;
+        autharise = false;
         totalSales = 0.00;
         totalItemspurchased = 0;
         profits = 0.00;
@@ -111,12 +111,8 @@ public:
             return totalSales;//return the original total sales after the prize per session. 
         }
 
-        
     }
-
     /*For the Profits Method, I have to be really critical of this. I will do this after I have found how the code is going to work. */
-
-
 };
 
 

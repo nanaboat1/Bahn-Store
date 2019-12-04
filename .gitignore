@@ -1,7 +1,11 @@
 .vscode/tasks.json
 .vscode/launch.json
 .vscode/c_cpp_properties.json
+<<<<<<< HEAD
 .DS_Store
 bin/main
 bin/main.dSYM/Contents/Info.plist
 bin/main.dSYM/Contents/Resources/DWARF/main
+=======
+bin/main.exe
+>>>>>>> a2796fa51d50acb7c054463d2e66a06090a01f01
