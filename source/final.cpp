@@ -63,7 +63,7 @@ public:
 
     Stocker(){
         authorisation = false;
-        shelf_select = 'AA';
+        shelf_select = 'a';
         assistance = false;
     }
 
@@ -74,7 +74,7 @@ public:
     char selectShelf(char shelfplace){
         
         
-
+    return shelfplace; 
     }
 };
 
