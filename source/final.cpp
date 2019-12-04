@@ -37,13 +37,11 @@ public:
             return customer_ratings;//returns the default constructors value for customers ratings
         }
     }
-
     int cashRewards(){
         //Depending on certain conditions then a number is given to cash rewards which is evaluated 
         //based on certain criterias. Which will be filled in later.
         return cash_rewards; 
     }
-
     double addToBill(int price){
 
         if(authorization){  
@@ -51,7 +49,6 @@ public:
         return receipt_bill;// adds the prize to the receipt bill then returns the new prize. 
         }
         else{
-
             return receipt_bill; // returns the original receipt bill without adding the prize.
         }
     }
@@ -60,12 +57,65 @@ public:
 class Stocker{
 
 public:
-    bool authorisation;
+    bool authorisation;//authorises the functions of this class to be used. 
+    char shelf_select;//check your previous library on how to make small letters capital , check lm8 it might be there.
+    bool assistance;//
 
+    Stocker(){
+        authorisation = false;
+        shelf_select = 'AA';
+        assistance = false;
+    }
 
+    bool authorising(){//authorises this class to be used in session.
+        return authorisation = true;     
+    }
+
+    char selectShelf(char shelfplace){
+        
+        
+
+    }
 };
 
-class businessAnalytics{//more to add to the code will do that in the comind days 
+class BusinessAnalytics{//more to add to the code will do that in the comind days 
+
+public:
+    bool autharise;//authorizes this function to be used. 
+    double totalSales;// stores the total purchase made in a day. 
+    int totalItemspurchased;//stores total items purchased
+    /* 8 data fields to store the total items purchased. */ 
+    double profits; 
+
+    //creating a constructor for the class
+    BusinessAnalytics(){
+        autharise = true;
+        totalSales = 0.00;
+        totalItemspurchased = 0;
+        profits = 0.00;
+    }
+
+    //Methods for this class
+
+    bool authorazing(){
+        
+        return autharise = true;//authorises this class to be used in a session. 
+    }
+
+    double total_sales(int sale_per_Session){
+        if(autharise){//if autharisation is set to true then the function runs. 
+        totalSales +=sale_per_Session;
+        return totalSales;// return the total sales after the prize per session
+        }
+        else{
+            return totalSales;//return the original total sales after the prize per session. 
+        }
+
+        
+    }
+
+    /*For the Profits Method, I have to be really critical of this. I will do this after I have found how the code is going to work. */
+
 
 };
 
