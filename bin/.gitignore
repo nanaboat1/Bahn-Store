@@ -1,7 +1,0 @@
-
-bin
-.vscode
-headers
-test
-*.exe
-*.json
