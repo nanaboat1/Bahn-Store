@@ -110,7 +110,7 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //This lists of functions, help correct the Users input of a shelf name, by converting if included lower case letters to Uppercase Letters . 
- char chartoNum(char ch){
+char chartoNum(char ch){
   if( static_cast<int>(ch)>=48&&static_cast<int>(ch)<58){//returns the numbers if user input are numbers
     return ch;//returns the ch when the input is a number.
   }
