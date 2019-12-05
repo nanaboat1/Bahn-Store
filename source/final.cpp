@@ -124,7 +124,7 @@ int quantity_add(){
   int add_quant = 0;
   cout << "Enter the quanity amount you want to add--> ";
   cin >> add_quant;
-  
+
   return add_quant;
 }
 char chartoNum(char ch){
@@ -173,7 +173,7 @@ int specific_ASCIIofChar_shelfIndex(int totalASCII_of_index){
   //return 8;
 }
 
-string warehouseItems(string warehouseIndex){  
+string warehouseItems(string warehouseIndex, bool state){  
   const int item_type = 5;
   //correctshelfName(), evaluates the user input to the standard
   warehouseIndex = correctshelfName(warehouseIndex);
@@ -184,6 +184,7 @@ string warehouseItems(string warehouseIndex){
     warehouse_items[2] = "Smartphones";
     warehouse_items[3] = "Books";
     warehouse_items[4] = "Fast food";
+  //The block of code evaluates the users input into array index which can be used to assess an array value.
   /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
   int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
   int numerical_val_column = numerical_Value_ofColumnindex(shelfname_stringtoChar_Column(warehouseIndex));//The numerical value of column index is evaluated by calling the functions.
@@ -191,17 +192,17 @@ string warehouseItems(string warehouseIndex){
   value that can be used by the warehouse to give a specific index of the shelf
   */
   int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
-
   //cout << total_numerical_valRow_Clmn << endl; used for testing purposes
   int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
-  //cout << index_to_be_accessed << endl;used for testing purposes. 
+  //cout << index_to_be_accessed << endl;used for testing purposes.
+
   string item_to_disp;
   for(int i = 0; i <= index_to_be_accessed; i++){
     item_to_disp = warehouse_items[i];
   }
   return item_to_disp;
 }
-int warehouseStock(string warehouseIndex){//This contains the quantities of stock in the warehouse with the prize.
+int warehouseStock(string warehouseIndex, bool state){//This contains the quantities of stock in the warehouse with the prize.
   const int item_type = 5;
   //correctshelfName(), evaluates the user input to the standard
   warehouseIndex = correctshelfName(warehouseIndex);
@@ -212,6 +213,7 @@ int warehouseStock(string warehouseIndex){//This contains the quantities of stoc
     warehouse_items[2] = 2;
     warehouse_items[3] = 2;
     warehouse_items[4] = 3;
+    //The block of code evaluates the users input into array index which can be used to assess an array value.
   /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
   int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
   int numerical_val_column = numerical_Value_ofColumnindex(shelfname_stringtoChar_Column(warehouseIndex));//The numerical value of column index is evaluated by calling the functions.
@@ -221,7 +223,14 @@ int warehouseStock(string warehouseIndex){//This contains the quantities of stoc
   //cout << total_numerical_valRow_Clmn << endl; used for testing purposes
   int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
   /*                                                                           */
+
+  if(state){//This block of code runs for only the Stocker class, when the bool state is false.
   
+    
+
+
+  }
+  else{//This block of code runs for only the Stocker class, when the bool state is false.
   //cout << index_to_be_accessed << endl;used for testing purposes. 
   int quantity_to_disp;//this variables displays the quantity of the specific shelf to the user.
   //The loops displays the specific warehouse shelf Item quanity asked for.
@@ -229,6 +238,7 @@ int warehouseStock(string warehouseIndex){//This contains the quantities of stoc
     quantity_to_disp = warehouse_items[i];
   }
   cout << "Quanity is " << quantity_to_disp << endl;
+  
   /* This block of code will ask the Stocker is she wants to add extra quantity of the item to the specific shelf 
    If the user opts not to add more quantities to the shelf the shel wont increase but if she opts to then it will increase*/
   int yes_or_no = 0;
@@ -247,6 +257,7 @@ int warehouseStock(string warehouseIndex){//This contains the quantities of stoc
     ;//when nothing happens. 
   } 
   return quantity_to_disp;//either it returns the old quanity or the accumulated new quantity quanity. 
+  }
 }
 //This functions help convert the users input into int values to help access the shelf arrays.
 int numerical_Value_ofRowindex(char convert_rowchar_toInt){
@@ -288,17 +299,18 @@ char shelfname_stringtoChar_Column(string shelfIndex){//The parameter is the she
   return string_index_to_char_column;
 }
 
-void myStore(){
-    Customer User;// Instantiated the customer class
-    Stocker  Cashier;// Instantiated the Stocker class
+void myStore_Backend(){
+    //Customer User;// Instantiated the customer class
+    Stocker Cashier;// Instantiated the Stocker class
     /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the datafield (shelf_select)  
     */  
+   bool state = false;
 
     Cashier.shelf_select = Cashier.selectShelf();
     
-    cout << warehouseItems(Cashier.shelf_select) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select);//" " << warehouseStock(Cashier.shelf_select) << endl;
+    cout << warehouseItems(Cashier.shelf_select, state) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select, state);//" " << warehouseStock(Cashier.shelf_select) << endl;
 
-    
+    //We want to know the total price in 
 
 
     /*My store the program is the cashier right .
@@ -308,13 +320,25 @@ void myStore(){
     */
    // create the customer and also the stocker. 
 }
+void myStore_Frontend(){
+    bool state = true;
+    Customer Client; 
+
+}
+
+void programStore(){
+    /*The store has two interfaces, a backend and a frontend
+     .The backend is only asssed by the cahshier and the front end is assessed by the customer
+     The backend and the front end asess the same shelf, but both have different functions . So , I used a bool called state to alternate between their individual functions*/
+     /* Depending on what the user does, after authorizing, then  it determines whether the user gets my_storeBackend or my_storeFrontend functions. */
+}
 
 int main(){
     int program = 1;
 
     while(program != 0){
 
-        myStore();
+        myStore_Backend();
 
     }
     
