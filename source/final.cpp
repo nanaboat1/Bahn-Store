@@ -1,6 +1,13 @@
 #include <iostream>
 using namespace std;
 
+//Function Prototypes
+char shelfname_stringtoChar_Row(string shelfIndex);
+char shelfname_stringtoChar_Column(string shelfIndex);
+int numerical_Value_ofRowindex(char shelfname_stringtoChar_Row);
+int numerical_Value_ofColumnindex(char shelfname_stringtoChar_Column);
+
+
 class  Customer{
 public:
     bool authorization; // gives authorization to the customer to buy things from the store 
@@ -123,29 +130,124 @@ char chartoNum(char ch){
   }
   return ch = '_';
 }
-string correctshelfName(string shelfname){
+string correctshelfName(string shelfindex){
   //The correctshelfName function corrects the users input of the shelf number to the standard format required by the program
   //to prevent runtime issues.  
   string standardShelfname = "aa";//stores tesf. //the value inside is an arbitrarily value to prevent error during compile time.   
   for(int i = 0; i <2; i++){  
-   standardShelfname[i] = chartoNum(shelfname[i]);
+   standardShelfname[i] = chartoNum(shelfindex[i]);
   }
   return standardShelfname;
   //The customer class will use the return value when the customer class  is objectisied.
 }
+int specific_ASCIIofChar_shelfIndex(int totalASCII_of_index){
+  /* This function uses the total ASCII value of the shelf index and switch statement to return its
+  corresponding value to the array. 
+  */
+  switch(totalASCII_of_index){
+    case 114://when the Array shelf is A1.( Total ASCII value ==> 114)(A1, is the first column.)
+      return 0;//it returns 0  
+    break;
+    case 115://when the Array shelf is A2. (Total ASCII value ==> 115)(A2, is the second column.)
+      return 1;
+    break;
+    case 116://when the Array shelf is A3. (Total ASCII value ==> 116)(A3, is the third column.)
+      return 2;
+    case 117://when the Array shelf is A4. (Total ASCII value ==> 117)(A4, is the fourth column.)
+      return 3;
+    break;
+    case 118://when the array shelf is A5. (Total ASCII value ==> 118)(A5, is the fifth column. )
+      return 4;
+    break;
+  }
+  //return 8;
+}
+string warehouseItems(string warehouseIndex){  
+  const int item_type = 5;
+  //correctshelfName(), evaluates the user input to the standard
+  warehouseIndex = correctshelfName(warehouseIndex);
+ /*For compile reasons, this array is hard coded with predefined stuffs and time convenience */
+   string warehouse_items[item_type];
+    warehouse_items[0] = "Cloths";
+    warehouse_items[1] = "Watch";
+    warehouse_items[2] = "Smartphones";
+    warehouse_items[3] = "Books";
+    warehouse_items[4] = "Fast food";
+
+
+
+  /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
+  int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
+  int numerical_val_column = numerical_Value_ofColumnindex(shelfname_stringtoChar_Column(warehouseIndex));//The numerical value of column index is evaluated by calling the functions.
+
+  /* After I have gotten the numerical values, I send it to a function that uses switch statements to evaluate them and couts a unique
+  value that can be used by the warehouse to give a specific index of the shelf
+  */
+  int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
+  
+  //cout << total_numerical_valRow_Clmn << endl; used for testing purposes
+  int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
+
+  //cout << index_to_be_accessed << endl;used for testing purposes. 
+  string item_to_disp;
+  
+  for(int i = 0; i < item_type; i++){
+    item_to_disp = warehouse_items[i];
+  }
+  
+  return item_to_disp;
+}
+int numerical_Value_ofRowindex(char convert_rowchar_toInt){
+  /*This function converts the rowIndex char gotten from shelfname_stringtoChar_Row to its corresponding ASCII value (integer value)
+  */
+  
+  return static_cast<int>(convert_rowchar_toInt);
+}
+int numerical_Value_ofColumnindex(char convert_columnchar_toInt){
+  /*This function converts the column char gotten from shelfname_stringtoChar_Column to its corresponding ASCII value (integer value)
+  */
+  
+  return convert_columnchar_toInt;
+}
+char shelfname_stringtoChar_Row(string shelfIndex){//The parameter is the shelf place the user wants to access.
+    // This function breaks the user input(Shelfindex of row to be evaluated by the add new item category)
+    
+
+    char string_index_to_char_row; 
+    //char column_index;
+    for(int i = 0; i <1; i++){
+     string_index_to_char_row = shelfIndex[i];
+    }
+    cout << string_index_to_char_row << endl;
+    return string_index_to_char_row;
+}
+char shelfname_stringtoChar_Column(string shelfIndex){//The parameter is the shelf place the user wants to access. 
+  // This function breaks the userinput(Shelfindex of column to be evaluated by the add new item category)
+ 
+  
+  char string_index_to_char_column; 
+  //char column_index;
+  for(int i = 0; i <2; i++){
+
+    string_index_to_char_column = shelfIndex[i];
+  }
+  cout << string_index_to_char_column << endl;
+  return string_index_to_char_column;
+}
+
+
+
+
+
 
 void myStore(){
-    
     Customer User;// Instantiated the customer class
     Stocker  Cashier;// Instantiated the Stocker class
-
-    /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the correctshelfName function 
-        and the end result is given to to the sendTocorrectshelfName function. 
+    /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the datafield (shelf_select)  
     */  
-    string sendTocorrectshelfName = correctshelfName(Cashier.selectShelf());//The string sendTocorrectshelfName gets the return value of the selectshelf function.
-    cout << sendTocorrectshelfName << endl;
-    //The sendTocorrectshelfName will be used in the ware house at a later date. 
-   
+
+    Cashier.shelf_select = Cashier.selectShelf();
+    
     
 
 
