@@ -145,6 +145,7 @@ void myStore(){
     string sendTocorrectshelfName = correctshelfName(Cashier.selectShelf());//The string sendTocorrectshelfName gets the return value of the selectshelf function.
     cout << sendTocorrectshelfName << endl;
     //The sendTocorrectshelfName will be used in the ware house at a later date. 
+    // 
    
     
 
