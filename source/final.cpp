@@ -1,10 +1,16 @@
 #include <iostream>
-using namespace std;
+#include <cstdlib>
+#include <ctime> 
+
+using namespace std; //using standard namespace. 
+
 //Function Prototypes
 char shelfname_stringtoChar_Row(string shelfIndex);
 char shelfname_stringtoChar_Column(string shelfIndex);
 int numerical_Value_ofRowindex(char shelfname_stringtoChar_Row);
 int numerical_Value_ofColumnindex(char shelfname_stringtoChar_Column);
+bool authorizing_user();
+int random_generator();
 
 class  Customer{
 public:
@@ -12,7 +18,7 @@ public:
   double receipt_bill; // stores the total purchase of the customer
   int cash_rewards; //a promotional something, I have not figured it out so do not ask me what it does. 
   int customer_ratings;
-  int key;//key used to perform a specific fxn to the shelf.
+  int key;//stores authorizing key to validate the user. 
   string shelf_select;
 
   //Constructor for this class. When the class is istantiated default values are given to the data fields during compile time. 
@@ -28,7 +34,9 @@ public:
 
     //Methods for this class
     bool authorizing(){//This method changes the value of authorization field to true.
-      return authorization = true;
+
+      authorization = authorizing_user();//Calls the authorizing_user function to validate the user.
+      return authorization ;
 
     }
 
@@ -77,7 +85,7 @@ public:
     bool authorisation;//authorises the functions of this class to be used. 
     string shelf_select;//check your previous library on how to make small letters capital , check lm8 it might be there.
     bool assistance;//
-    int key;//grants access to perform a specific access to the shelf.
+    int key;//stores authorizing key to validate the user. 
 
     Stocker(){
       authorisation = false;
@@ -377,8 +385,13 @@ void myStore_Frontend(){
   bool state = true;//this state is used to access the the warehouse and call specific functions based on this state.
   Customer Client; 
 
+  //Calls the authorizing user function to validate the user
+  Client.authorizing();
+
+
   /* Find a convenient way to print the shelf three arrays nicely and neatly, *///Dw, I will remind you tomorrow Godwilling
   //Also , the print receipt and arrays to store 
+  /* Authorizing function  */ 
 
   int done;
 
@@ -396,7 +409,7 @@ void myStore_Frontend(){
     //that a customer will use like selecting item and and buying more stuffs. 
     // ** and receipt printing and a whole lotta stuffs I will explore later . Now, I must focus on my Math Test. 
     //print receipt, buy stuffs call. stocker. customer rating. Authorizing .
-    // Bro , like joke see ya later have a nath test due soon. 
+    
 
     cout << " Hello user, are you done shopping  ";
     cin >> done;
@@ -415,13 +428,46 @@ void programStore(){
 }
 
 int main(){
-    int program = 1;
-
+   /* int program = 1;
     while(program != 0){
 
       myStore_Frontend();
 
-    }
-
+    } */
+    myStore_Frontend();
+    
     return 0;
+}
+
+bool authorizing_user(){
+
+  cout << "Hello, User welcome to the Store. To be able to access the store, we need to verify you are not a robot "<<endl;//gives information to the user about this step. 
+  int _validator;
+  int users_check;
+  cout << endl;
+  
+  cout <<"----------------------------------------"<<endl;
+  do{ 
+    
+    _validator = random_generator();
+    cout << "Enter this key ==>  " << _validator << " to get verified " << endl;
+    cout << "Enter here --> ";
+    cin >> users_check; 
+    
+
+  }while(users_check !=_validator);
+  cout <<"-----------------------------------------"<<endl;
+ 
+  /* Incorporate the rand function to check if the user is not a robot*/ 
+  /* Features :
+    rand function that returns a number and the user must enter the code. and also error checking. to tell the user that the code is incorrect
+    and generates new one until the user gets the code then code returns false. got it
+  */
+  return true; 
+}
+
+int random_generator(){
+  /*This function generates a random number by calling the rand function and returns the int  */ 
+  srand(time(NULL)); //seed the random library with the current time
+  return rand() % 3452;// returns a generated random number. 
 }
