@@ -16,40 +16,40 @@ int random_generator();
 class  Customer{
 public:
   bool authorization; // gives authorization to the customer to buy things from the store 
-  double receipt_bill; // stores the total purchase of the customer
+  double receipt_bill; //stores the total purchase of the customer
   int cash_rewards; //a promotional something, I have not figured it out so do not ask me what it does. 
   int customer_ratings;
   int key;//stores authorizing key to validate the user. 
   string shelf_select;
 
-  //Constructor for this class. When the class is istantiated default values are given to the data fields during compile time. 
+  //Constructor 
   Customer(){
     authorization = false;
     receipt_bill = 0.00;
     cash_rewards = 0.00;
     customer_ratings = 0; 
-    key = 1235;//default value for the data. 
-    shelf_select = "aA"; //default value for the shelf select. 
+    key = 1235; 
+    shelf_select = "aA";  
     
   }
 
     //Methods for this class
-    bool authorizing(){//This method changes the value of authorization field to true.
+    bool authorizing(){
 
-      authorization = authorizing_user();//Calls the authorizing_user function to validate the user.
+      authorization = authorizing_user();//Calls authorizing_user  and validates the user
       return authorization ;
     }
 
-  int ratings(){//this method asks the user to rate the experience in using the store. 
+  int ratings(){ 
 
-    if(authorization){// this method is enabled only when the user has been authorized.
+    if(authorization){
       cout << " How was your experience today shopping with us. Please rate us from 1 to 5 :) "<<endl;
       cin >> customer_ratings;    
       return customer_ratings;
     }
     else{
       customer_ratings = 0;
-      return customer_ratings;//returns the default constructors value for customers ratings
+      return customer_ratings;
     }
   }
 
@@ -63,10 +63,10 @@ public:
 
     if(authorization){  
       receipt_bill += price;
-      return receipt_bill;// adds the price to the receipt bill then returns the new prize. 
+      return receipt_bill; 
     }
     else{
-      return receipt_bill; // returns the original receipt bill without adding the prize.
+      return receipt_bill; 
     } 
   }
   string selectShelf(){
@@ -82,21 +82,21 @@ public:
 };
 class Stocker{
 public:
-    bool authorisation;//authorises the functions of this class to be used. 
-    string shelf_select;//check your previous library on how to make small letters capital , check lm8 it might be there.
+    bool authorisation; 
+    string shelf_select;
     bool assistance;//
     int key;//stores authorizing key to validate the user. 
 
     Stocker(){
       authorisation = false;
-      shelf_select = "aA";//Default shell value
+      shelf_select = "aA";//Default shelf value
       assistance = false;
       key = 1234;//default value for the key.
     }
 
-    bool authorising(){//authorises this class to be used in session.
+    bool authorising(){
 
-      authorisation = authorizing_user();//Calls the authorizing_user function to validate the user.
+      authorisation = authorizing_user();//Calls authorizing_user to validate the user.
       return authorisation = true;     
     }
 
@@ -111,44 +111,107 @@ public:
 };
 class BusinessAnalytics{//more to add to the code will do that in the coming days 
 public:
-    bool autharise;//authorizes this function to be used. 
-    double totalSales;// stores the total purchase made in a day. 
-    int totalItemspurchased;//stores total items purchased
-    /*  data fields to store the total items purchased. */ 
-    double profits; 
+    bool autharise; 
+    double totalSales;
+    int totalItemspurchased;//stores total items purchased //set to static for a specific reason.
+    /*  data fields to store the total items purchased. */  
+    double profits; //set to static variable for a specific reason.
+
+    /* The specific reason why the memeber variables reason are set to static is that, I dont want the member variables to get deleted
+    after each user uses the store and  since I would need the data to forcast things.*/
 
     //creating a constructor for the class
     BusinessAnalytics(){
-        autharise = false;
-        totalSales = 0.00;
-        totalItemspurchased = 0;
-        profits = 0.00;
+      autharise = false;
+      totalSales = 0.00;
+      totalItemspurchased = 0;
+      profits = 0.00;
     }
 
     //Methods for this class
-
     bool authorizing(){
 
       autharise = authorizing_user();//Calls the authorizing_user function to validate the user.
       return autharise;//authorises this class to be used in a session. 
     }
 
-  double total_sales(int sale_per_Session){
-    if(autharise){//if autharisation is set to true then the function runs. 
-      totalSales +=sale_per_Session;
-      return totalSales;// return the total sales after the prize per session
+    double total_sales(double sale_per_Session){
+      if(autharise){//if autharisation is set to true then the function runs. 
+        totalSales +=sale_per_Session;
+        return totalSales;// return the total sales after the prize per session
       }
-    else{
+      else{
       return totalSales;//return the original total sales after the prize per session. 
+      }
+    }
+
+    int total_itemspurchased_session(int items_per_Session){
+      if(autharise){//if autharisation is set to true then the function runs. 
+        totalSales +=items_per_Session;
+        return totalItemspurchased;// return the total sales after the prize per session
+      }
+      else{
+        return totalItemspurchased;// return the total sales after the prize per session
+      }
 
     }
 
-  }
+    void displayanalytics(){
+      /* Displays the analytics stuffs to the Manager.  */
+      //take in neccessary data sends to the display function to be displayed //
+
+
+    }
   /*For the Profits Method, I have to be really critical of this. I will do this after I have found how the code is going to work. */
 };
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//This lists of functions, consists of the shelfs of the store and function manipulators that helps access the shelf array based on the users input.
-//This function helps the stocker to add quanity amount to the shelf.
+
+void shelf_display(double unitPrice[5], string warehouseItems[5], string warehouseStks[5]){
+
+  //Using loops to print the shelf to the User. 
+  for(int i = 0; i < 5;i++){
+
+
+
+  }
+}
+int take_quantityFromarray_to_localizer(int quantity[], int shelfsize){
+
+  static 
+
+
+
+}
+void localizer(){
+  /*This function localizes all the arrays to enhance printing during complile time */
+  //Because the arrays of Unit_price and Item list are standard and they do not change, they will
+  // be coded brute forcely, Also I am new to this and dont want errors beyond my scope, thats why they are hard
+  //coded. The only array that will not be hard coded is the quantity array because it changes during runtime. 
+  const int item_type = 5;
+  double prize_shelf[item_type];
+  prize_shelf[0] = 17.99;
+  prize_shelf[1] = 35.99;
+  prize_shelf[2] = 499.99;
+  prize_shelf[3] = 12.99;
+  prize_shelf[4] = 13.99;
+  /*more arrays will be added*/ 
+
+  string warehouse_items[item_type];
+  warehouse_items[0] = "Cloths";
+  warehouse_items[1] = "Watch";
+  warehouse_items[2] = "Smartphones";
+  warehouse_items[3] = "Books";
+  warehouse_items[4] = "Fast food";
+  /* more arrays will be added */
+
+  /* Now that I have gotten all the arrays, I send them to a print shelf function that prints kind of a shelf for them.*/
+  int quantity_array[item_type];
+
+  
+
+
+
+
+}
 int buy_itemFromshelf(){
   /*This function asks the user the quanity of item the user wants to remove from the shelf.
   */ 
@@ -168,6 +231,8 @@ int quantity_add(){
 
   return add_quant;
 }
+//This lists of functions, consists of the shelfs of the store and function manipulators that helps access the shelf array based on the users input.
+//This function helps the stocker to add quanity amount to the shelf.
 char chartoNum(char ch){
   if( static_cast<int>(ch)>=48&&static_cast<int>(ch)<58){//returns the numbers if user input are numbers
     return ch;//returns the ch when the input is a number.
@@ -222,7 +287,6 @@ double unitprice(string warehouseIndex){
   double unit_price = 0;
  
   double prize_shelf[item_type];
-
   prize_shelf[0] = 17.99;
   prize_shelf[1] = 35.99;
   prize_shelf[2] = 499.99;
@@ -250,8 +314,9 @@ double unitprice(string warehouseIndex){
   return unit_price;
 }
 string warehouseItems(string warehouseIndex, bool state){  
-  const int item_type = 5;
-  //correctshelfName(), evaluates the user input to the standard
+  const int item_type = 5;//size of array. 
+
+  //correctshelfName(), evaluates the user input to the standard that prevents compile issues.
   warehouseIndex = correctshelfName(warehouseIndex);
  /*For compile reasons, this array is hard coded with predefined stuffs and time convenience */
    string warehouse_items[item_type];
@@ -260,6 +325,10 @@ string warehouseItems(string warehouseIndex, bool state){
     warehouse_items[2] = "Smartphones";
     warehouse_items[3] = "Books";
     warehouse_items[4] = "Fast food";
+
+  //**Add like 5 more arrays later and remember to change the arrays in char to input and stuffs later */ 
+
+
   //The block of code evaluates the users input into array index which can be used to assess an array value.
   /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
   int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
@@ -270,17 +339,22 @@ string warehouseItems(string warehouseIndex, bool state){
   int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
   //cout << total_numerical_valRow_Clmn << endl; This line is used for testing purposes
   int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
+  //Then the total ASCII is send to the specificChar
+
   //cout << index_to_be_accessed << endl; This line is used for testing purposes.
+
 
   string item_to_disp;
   for(int i = 0; i <= index_to_be_accessed; i++){
     item_to_disp = warehouse_items[i];
   }
   return item_to_disp;
+
 }
+
 int warehouseStock(string warehouseIndex, bool state){//This contains the quantities of stock in the warehouse with the prize.
   const int item_type = 5;
-  //correctshelfName(), evaluates the user input to the standard shelf index to prevent errors and let the code run perfectly.
+  //correctshelfName(), evaluates the user input to the standard shelf index to prevent errors and let the code run perfectly +- 0.0001.
   warehouseIndex = correctshelfName(warehouseIndex);
  /*For compile reasons, this array is hard coded with predefined stuffs and also given the limited time we are supposed to this. */
    int warehouse_items[item_type];
@@ -317,10 +391,9 @@ int warehouseStock(string warehouseIndex, bool state){//This contains the quanti
 
     return take_quant_FromShelf;//returns the quantity of the item the user bought.
   }
-  else{
-    //This block of code runs  only for the Stocker class, when the bool state is false.
+  else{//This block of code runs  only for the Stocker class, when the bool state is false.
 
-    //cout << index_to_be_accessed << endl;This line of code is used testing purposes. 
+    //cout << index_to_be_accessed << endl;This line of code is used for testing purposes. 
 
     int quantity_to_disp;//this variables displays the quantity of the specific shelf to the user.
 
@@ -353,8 +426,9 @@ int warehouseStock(string warehouseIndex, bool state){//This contains the quanti
       ;//when nothing happens. 
     } 
 
-    return quantity_to_disp;//either it returns the old quanity or the accumulated new quantity quanity. 
+    //
 
+    return quantity_to_disp;//either it returns the old quanity or the accumulated new quantity quanity. 
   }
 }
 //This functions help convert the users input into int values to help access the shelf arrays.
@@ -396,12 +470,30 @@ char shelfname_stringtoChar_Column(string shelfIndex){//The parameter is the she
   //cout << string_index_to_char_column << endl;
   return string_index_to_char_column;
 }
-void business_analytics(){
+static void business_analytics(int state, double sales_per_session  /*, int item_purchased_perSession*/){//sends data to the Business Analytics class
 
   BusinessAnalytics Manager;
 
   Manager.authorizing();//istantiates the BusinessAnalytics class.
-  
+
+  /* Since the BusinessAnalytics takes in data from my_storefrontend() and those data needs to be assessed by my_storebackend() 
+  I used a variable called state to do that, so when state is 0, business_analytics does the functions for  my_storefrontend() and when 1 does it for mystorebackend() .*/
+  switch(state){
+    //when the state is zero then business_analytics function get's called by mystore_frontend()
+    case 0: 
+      Manager.total_sales(sales_per_session);
+      //Manager.total_itemspurchased_session(item_purchased_perSession);
+      // The above methods of the classes are called to store the total sales and total item per session.
+    break;
+    case 1:
+      //when the state is 1 then the business_analytics function processes the the needs of mystore_backend()
+      //display report to the cashier when she automatically.  for it. 
+    break;
+ 
+  }
+  /*cout << Manager.totalSales << endl;
+  cout << "kk" <<endl; the variable works well. Now its time to make sure the program doesnt stop otherwise all the data will be lost. */ 
+
 
 }
 void myStore_Backend(){
@@ -455,12 +547,13 @@ void myStore_Frontend(){
 
 
     /* The customer's billing method gets called and the total price is the quantity the user chose multiplied by the unit price.
-    and all this is done by the indexvalue of the user. All  values for unit price itemname and quanitity are correlated together by the same index name*///
-      Client.addToBill(unitprice(Client.shelf_select)*warehouseStock(Client.shelf_select, state));//total price is multiplied by the quanity and unit price.
+    and all this is done by the indexvalue of the user. All  values for unit price, itemname and quanitity are correlated together by the same index name*///
+    Client.addToBill(unitprice(Client.shelf_select)*warehouseStock(Client.shelf_select, state));
 
     /* Also, find ways you are going to store the users selection in an array so that u can print a receipt from it */
     //The shelf needs to printed here first. Then the user selects the array where he wants to pick up something
     //then when the thing is picked it gets updated in the array. 
+    
     
      
     //print receipt, buy stuffs call. stocker. customer rating. Authorizing .
@@ -477,10 +570,15 @@ void myStore_Frontend(){
         exit_loop = 0;
       break;
     }
-
    /* An array that stores the users bought item and then tracks that with the price and prints a receipt. */ 
 
+   //Business Analytics is called to store the total sales per session.
+   business_analytics(0 ,Client.receipt_bill);
+
   }while(exit_loop != 1);
+
+  
+
 
   //0 for the connector. 
   //cout << Client.receipt_bill << endl;
@@ -523,16 +621,11 @@ bool authorizing_user(){
     cout << "Enter here --> ";
     cin >> users_check; 
     
-
   }while(users_check !=_validator);
   cout <<"-----------------------------------------"<<endl;
   cout <<"*****************************************"<<endl;
  
-  /* Incorporate the rand function to check if the user is not a robot*/ 
-  /* Features :
-    rand function that returns a number and the user must enter the code. and also error checking. to tell the user that the code is incorrect
-    and generates new one until the user gets the code then code returns false. got it
-  */
+  
   return true; // returns true so that 
 }
 
