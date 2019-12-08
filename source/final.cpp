@@ -12,6 +12,7 @@ int numerical_Value_ofColumnindex(char shelfname_stringtoChar_Column);
 bool authorizing_user();
 int random_generator();
 
+
 class  Customer{
 public:
   bool authorization; // gives authorization to the customer to buy things from the store 
@@ -37,7 +38,6 @@ public:
 
       authorization = authorizing_user();//Calls the authorizing_user function to validate the user.
       return authorization ;
-
     }
 
   int ratings(){//this method asks the user to rate the experience in using the store. 
@@ -63,7 +63,7 @@ public:
 
     if(authorization){  
       receipt_bill += price;
-      return receipt_bill;// adds the prize to the receipt bill then returns the new prize. 
+      return receipt_bill;// adds the price to the receipt bill then returns the new prize. 
     }
     else{
       return receipt_bill; // returns the original receipt bill without adding the prize.
@@ -71,10 +71,10 @@ public:
   }
   string selectShelf(){
 
-    cout <<"------------------------";
+    cout <<"------------------------"<<endl;
     cout << "Enter the shelf code ";
     cin >> shelf_select;    
-    cout <<"------------------------";
+    cout <<"------------------------"<<endl;
 
     return shelf_select; 
   }
@@ -95,15 +95,17 @@ public:
     }
 
     bool authorising(){//authorises this class to be used in session.
+
+      authorisation = authorizing_user();//Calls the authorizing_user function to validate the user.
       return authorisation = true;     
     }
 
     string selectShelf(){
 
-      cout <<"--------------------------"; 
+      cout <<"--------------------------"<<endl;
       cout <<  "Enter the shelf code ";
       cin >> shelf_select;    
-      cout <<"--------------------------";
+      cout <<"--------------------------"<<endl;
       return shelf_select; 
     }
 };
@@ -112,7 +114,7 @@ public:
     bool autharise;//authorizes this function to be used. 
     double totalSales;// stores the total purchase made in a day. 
     int totalItemspurchased;//stores total items purchased
-    /* 8 data fields to store the total items purchased. */ 
+    /*  data fields to store the total items purchased. */ 
     double profits; 
 
     //creating a constructor for the class
@@ -125,9 +127,10 @@ public:
 
     //Methods for this class
 
-    bool authorazing(){
-        
-        return autharise = true;//authorises this class to be used in a session. 
+    bool authorizing(){
+
+      autharise = authorizing_user();//Calls the authorizing_user function to validate the user.
+      return autharise;//authorises this class to be used in a session. 
     }
 
   double total_sales(int sale_per_Session){
@@ -151,12 +154,14 @@ int buy_itemFromshelf(){
   */ 
   int quantity_toTake = 0;//takes in the users quantity 
 
-  cout << "How many quantities of x are you buying-->  ";
+  cout << "How many quantities of  are you buying-->  ";
   cin >> quantity_toTake;
+  cin.ignore();
 
   return quantity_toTake;
 }
 int quantity_add(){
+  /* This function is used to add extra quantity to the shelf , when requested by the stocker or cashier */
   int add_quant = 0;
   cout << "Enter the quanity amount you want to add--> ";
   cin >> add_quant;
@@ -208,6 +213,42 @@ int specific_ASCIIofChar_shelfIndex(int totalASCII_of_index){
   }
   return 8;
 }
+double unitprice(string warehouseIndex){
+  /* This function contains the arrays that stores the unit prices of the individual items in the shelf. */
+
+  //correctshelfName(), evaluates the user input to the standard shelf index to prevent errors and let the code run perfectly.
+  warehouseIndex = correctshelfName(warehouseIndex);
+  const int item_type = 5;
+  double unit_price = 0;
+ 
+  double prize_shelf[item_type];
+
+  prize_shelf[0] = 17.99;
+  prize_shelf[1] = 35.99;
+  prize_shelf[2] = 499.99;
+  prize_shelf[3] = 12.99;
+  prize_shelf[4] = 13.99;
+
+  //The block of code evaluates the users input into array index which can be used to assess an array value.
+  /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
+  int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
+  int numerical_val_column = numerical_Value_ofColumnindex(shelfname_stringtoChar_Column(warehouseIndex));//The numerical value of column index is evaluated by calling the functions.
+  /* After I have gotten the numerical values, I send it to a function that uses switch statements to evaluate them and couts a unique
+  value that can be used by the warehouse to give a specific index of the shelf
+  */
+  int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
+  //cout << total_numerical_valRow_Clmn << endl; used for testing purposes
+  int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
+  //cout << index_to_be_accessed << endl;used for testing purposes.
+
+
+
+  for(int i = 0; i <= index_to_be_accessed; i++){
+    unit_price = prize_shelf[i];
+  }
+
+  return unit_price;
+}
 string warehouseItems(string warehouseIndex, bool state){  
   const int item_type = 5;
   //correctshelfName(), evaluates the user input to the standard
@@ -227,9 +268,9 @@ string warehouseItems(string warehouseIndex, bool state){
   value that can be used by the warehouse to give a specific index of the shelf
   */
   int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
-  //cout << total_numerical_valRow_Clmn << endl; used for testing purposes
+  //cout << total_numerical_valRow_Clmn << endl; This line is used for testing purposes
   int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
-  //cout << index_to_be_accessed << endl;used for testing purposes.
+  //cout << index_to_be_accessed << endl; This line is used for testing purposes.
 
   string item_to_disp;
   for(int i = 0; i <= index_to_be_accessed; i++){
@@ -253,13 +294,13 @@ int warehouseStock(string warehouseIndex, bool state){//This contains the quanti
   int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
   int numerical_val_column = numerical_Value_ofColumnindex(shelfname_stringtoChar_Column(warehouseIndex));//The numerical value of column index is evaluated by calling the functions.
   /* After I have gotten the numerical values, I send it to a function that uses switch statements to evaluate them and couts a unique
-  value that can be used by the warehouse to give a specific index of the shelf*/
+  value that can be used by the warehouse to get the  specific index of the shelf*/
   int total_numerical_valRow_Clmn = numerical_val_row + numerical_val_column;//this variables stores the total numerical value of row index and column index. 
   //cout << total_numerical_valRow_Clmn << endl; This line of code is used for testing purposes
   int index_to_be_accessed = specific_ASCIIofChar_shelfIndex(total_numerical_valRow_Clmn);
   /*                                                                           */
   // Variable for the quantity  to take from the shelf array. 
-  int take_quant_FromShelf;
+  int take_quant_FromShelf = 0;
 
   if(state){
     //This block of code runs for only the Customer class, when the bool state is true.
@@ -270,7 +311,7 @@ int warehouseStock(string warehouseIndex, bool state){//This contains the quanti
     //This loops is used to iterate through the array to get the item the user is buying.
     for(int i = 0; i < index_to_be_accessed; i++){
  
-      warehouse_items[i] = warehouse_items[i]-take_quant_FromShelf;// updates the array by removing the quanity the user bought from the array. 
+      warehouse_items[i] = warehouse_items[i]- take_quant_FromShelf;// updates the array by removing the quanity the user bought from the array. 
 
     }
 
@@ -355,45 +396,56 @@ char shelfname_stringtoChar_Column(string shelfIndex){//The parameter is the she
   //cout << string_index_to_char_column << endl;
   return string_index_to_char_column;
 }
+void business_analytics(){
 
+  BusinessAnalytics Manager;
+
+  Manager.authorizing();//istantiates the BusinessAnalytics class.
+  
+
+}
 void myStore_Backend(){
-    //Customer User;// Instantiated the customer class
+
+  /*This function stores the total sales per session and accumulates it till all the total sales is gotten.  */
+    
     Stocker Cashier;// Instantiated the Stocker class
+    
     /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the datafield (shelf_select)  
     */  
-    /*I have to authorize first before all this can be done */
-    bool state = false;//used to alternate in warehouse stock. 
-
+    //Calls the authorising function to validate the user. 
+    Cashier.authorising();
+    bool state = false;//used to alternate between different functions in warehouse stock. 
     /* The Cashier needs to know the warehouse items hence the array will be displayed to the user first */
-
     Cashier.shelf_select = Cashier.selectShelf();
-    
     cout << warehouseItems(Cashier.shelf_select, state) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select, state);//" " << warehouseStock(Cashier.shelf_select) << endl;
-
-    //We want to know the total price in 
-
+    
+    
+    //We want to know the total price in the array. time_per session . 
 
     /*My store the program is the cashier right .
     And  in the store we have a customer and a stocker
     and a way to print the items in the store nicely and a shelf name so that when the user enters a specific value of the shelf 
     it can bring the items of the shelf then the user chooses the quantity he or she wants to buy. 
     */
-    // create the customer and also the stocker. 
+    
 }
 void myStore_Frontend(){
 
   bool state = true;//this state is used to access the the warehouse and call specific functions based on this state.
   Customer Client; 
 
-  //Calls the authorizing user function to validate the user
+  //Calls the authorizing user method of the class.
   Client.authorizing();
-
+ 
 
   /* Find a convenient way to print the shelf three arrays nicely and neatly, *///Dw, I will remind you tomorrow Godwilling
   //Also , the print receipt and arrays to store 
-  /* Authorizing function  */ 
+   
+  int done =0;
+  int yes_or_no = 0;
+  int exit_loop = 0;
 
-  int done;
+  /*This loop is used in the shopping process of the user.  */
 
   do{
 
@@ -401,22 +453,37 @@ void myStore_Frontend(){
 
     cout << warehouseItems(Client.shelf_select ,state) << ": " << warehouseStock(Client.shelf_select, state);
 
+
+    /* The customer's billing method gets called and the total price is the quantity the user chose multiplied by the unit price.
+    and all this is done by the indexvalue of the user. All  values for unit price itemname and quanitity are correlated together by the same index name*///
+      Client.addToBill(unitprice(Client.shelf_select)*warehouseStock(Client.shelf_select, state));//total price is multiplied by the quanity and unit price.
+
     /* Also, find ways you are going to store the users selection in an array so that u can print a receipt from it */
-    //The shelf needs to printed here first. Then the User selects the array where he wants to pick up something
+    //The shelf needs to printed here first. Then the user selects the array where he wants to pick up something
     //then when the thing is picked it gets updated in the array. 
     
-    //This function serves as the customer place where the user is a customer which contains functions 
-    //that a customer will use like selecting item and and buying more stuffs. 
-    // ** and receipt printing and a whole lotta stuffs I will explore later . Now, I must focus on my Math Test. 
+     
     //print receipt, buy stuffs call. stocker. customer rating. Authorizing .
     
 
-    cout << " Hello user, are you done shopping  ";
-    cin >> done;
+    cout << " Hello Customer, are you done shopping (1)-->(Yes) || (0)-->(No) ";
+    cin >> yes_or_no;
 
-    /* An array that stores the users bought item and then tracks that with the price and prints a receipt. */ 
+    switch(yes_or_no){
+      case 1:
+        exit_loop++;
+      break;
+      case 0:
+        exit_loop = 0;
+      break;
+    }
 
-  }while(done != 0);
+   /* An array that stores the users bought item and then tracks that with the price and prints a receipt. */ 
+
+  }while(exit_loop != 1);
+
+  //0 for the connector. 
+  //cout << Client.receipt_bill << endl;
 
 }
 
@@ -425,6 +492,8 @@ void programStore(){
      .The backend is only asssed by the cahshier and the front end is assessed by the customer
      The backend and the front end asess the same shelf, but both have different functions . So , I used a bool called state to alternate between their individual functions*/
      /* Depending on what the user does, after authorizing, then  it determines whether the user gets my_storeBackend or my_storeFrontend functions. */
+      
+      //1 for the connector. 
 }
 
 int main(){
@@ -457,13 +526,14 @@ bool authorizing_user(){
 
   }while(users_check !=_validator);
   cout <<"-----------------------------------------"<<endl;
+  cout <<"*****************************************"<<endl;
  
   /* Incorporate the rand function to check if the user is not a robot*/ 
   /* Features :
     rand function that returns a number and the user must enter the code. and also error checking. to tell the user that the code is incorrect
     and generates new one until the user gets the code then code returns false. got it
   */
-  return true; 
+  return true; // returns true so that 
 }
 
 int random_generator(){
