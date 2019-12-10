@@ -113,12 +113,9 @@ class BusinessAnalytics{//more to add to the code will do that in the coming day
 public:
     bool autharise; 
     double totalSales;
-    int totalItemspurchased;//stores total items purchased //set to static for a specific reason.
+    int totalItemspurchased;
     /*  data fields to store the total items purchased. */  
-    double profits; //set to static variable for a specific reason.
-
-    /* The specific reason why the memeber variables reason are set to static is that, I dont want the member variables to get deleted
-    after each user uses the store and  since I would need the data to forcast things.*/
+    double profits; 
 
     //creating a constructor for the class
     BusinessAnalytics(){
@@ -131,27 +128,27 @@ public:
     //Methods for this class
     bool authorizing(){
 
-      autharise = authorizing_user();//Calls the authorizing_user function to validate the user.
-      return autharise;//authorises this class to be used in a session. 
+      autharise = authorizing_user();//Calls  authorizing_user to validate the user.
+      return autharise;
     }
 
     double total_sales(double sale_per_Session){
-      if(autharise){//if autharisation is set to true then the function runs. 
+      if(autharise){ 
         totalSales +=sale_per_Session;
-        return totalSales;// return the total sales after the prize per session
+        return totalSales;
       }
       else{
-      return totalSales;//return the original total sales after the prize per session. 
+      return totalSales; 
       }
     }
 
     int total_itemspurchased_session(int items_per_Session){
-      if(autharise){//if autharisation is set to true then the function runs. 
+      if(autharise){
         totalSales +=items_per_Session;
-        return totalItemspurchased;// return the total sales after the prize per session
+        return totalItemspurchased;
       }
       else{
-        return totalItemspurchased;// return the total sales after the prize per session
+        return totalItemspurchased;
       }
 
     }
@@ -186,6 +183,7 @@ void localizer(){
   //Because the arrays of Unit_price and Item list are standard and they do not change, they will
   // be coded brute forcely, Also I am new to this and dont want errors beyond my scope, thats why they are hard
   //coded. The only array that will not be hard coded is the quantity array because it changes during runtime. 
+
   const int item_type = 5;
   double prize_shelf[item_type];
   prize_shelf[0] = 17.99;
@@ -207,7 +205,6 @@ void localizer(){
   int quantity_array[item_type];
 
   
-
 
 
 
@@ -363,6 +360,7 @@ int warehouseStock(string warehouseIndex, bool state){//This contains the quanti
     warehouse_items[2] = 2;
     warehouse_items[3] = 2;
     warehouse_items[4] = 3;
+    
   //The block of code evaluates the users input into array index which can be used to assess an array value.
   /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
   int numerical_val_row = numerical_Value_ofRowindex(shelfname_stringtoChar_Row(warehouseIndex)); //The numerical value of Row index is gotten is evaluated by calling the functions. 
