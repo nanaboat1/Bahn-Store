@@ -542,6 +542,8 @@ double myStore_Frontend(){
   //Calls the authorizing user method of the class.
   Client.authorizing();
 
+  cout << "Please, what do you want to buy Today " << endl;
+
   //This block of code gets the values of quantity array from warehouseStock function. 
   //to be used here to print a shelf. 
   static int shelf_stock[5]; 
@@ -554,7 +556,7 @@ double myStore_Frontend(){
   //localizer function gets called to display the shelf to the user.
   localizer(shelf_stock);
 
-  //Also , the print receipt and arrays to store 
+   
    
   int done =0;
   int yes_or_no = 0;
@@ -604,9 +606,6 @@ double myStore_Frontend(){
   cout << endl;
   cout <<endl;
 
-    
-
-  
   return Client.receipt_bill;
 }
 static void programStore(){
