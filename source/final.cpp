@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime> 
+#include <string.h>
 
 using namespace std; //using standard namespace. 
 
@@ -34,6 +35,11 @@ public:
     shelf_select = "aA";  
     
   }
+  string getShelfSelect(){
+
+    return shelf_select;
+  }  
+
 
     //Methods for this class
     bool authorizing(){
@@ -71,11 +77,14 @@ public:
       return receipt_bill; 
     } 
   }
+
   string selectShelf(){
+    
 
     cout <<"------------------------"<<endl;
     cout << "Enter the shelf code ";
-    cin >> shelf_select;    
+    string input = getShelfSelect();
+    getline(cin, input);    
     cout <<"------------------------"<<endl;
 
     return shelf_select; 
@@ -226,7 +235,6 @@ int buy_itemFromshelf(){
 
   cout << "How many quantities are you buying-->  ";
   cin >> quantity_toTake;
-  cin.ignore();
 
   return quantity_toTake;
 }
@@ -548,7 +556,7 @@ double myStore_Frontend(){
   //to be used here to print a shelf. 
   static int shelf_stock[5]; 
   for(int i = 0; i < 5; i++){
-    shelf_stock[i] = warehouseStock("a1", 2, i);
+    shelf_stock[i] = warehouseStock("a1", 2, i);//template to get the array values from a function.
   }
   //
   cout<<endl;
