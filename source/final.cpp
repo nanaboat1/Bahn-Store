@@ -634,6 +634,7 @@ static void programStore(){
 
   break;
   
+  
   case 2:
     cout << "Welcome to Banhofstrasse, Employee ®"<<endl;
     cout<<endl;
@@ -645,9 +646,12 @@ static void programStore(){
   
 }
 int main(){
+
   int not_exit = 1;
 
   while( not_exit == 1){
+
+
 
     programStore();
 
@@ -676,6 +680,12 @@ bool authorizing_user(){
   cout <<"-----------------------------------------"<<endl;
   cout <<"*****************************************"<<endl;
  
+
+
+
+
+
+
   
   return true; // returns true so that 
 }
@@ -685,14 +695,17 @@ int random_generator(){
   return rand() % 3452;// returns a generated random number. 
 }
 string check_employee(){
-  
+
+
+
   string employee_Id;
   cout << "Welcome employee, Please get Enter you Employee ID ,below "<<endl;
   cout <<" -----------------"<<endl;
   cout <<" Enter ID -->   ";
   cin >> employee_Id;
   cout <<" -----------------"<<endl;
-  
+
+
   return employee_Id;
 }
 
