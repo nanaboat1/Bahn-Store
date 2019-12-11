@@ -11,6 +11,8 @@ int numerical_Value_ofRowindex(char shelfname_stringtoChar_Row);
 int numerical_Value_ofColumnindex(char shelfname_stringtoChar_Column);
 bool authorizing_user();
 int random_generator();
+string check_employee();
+
 
 
 class  Customer{
@@ -168,9 +170,29 @@ void shelf_display(double unitPrice[5], string warehouseItems[5], int warehouseS
     cout << "SHELF-INDEX| ITEM NAME     | QUANTITY | UNIT PRICE|"<<endl;
     cout << "---------------------------------------------------"<<endl;
   for(int i = 0; i < 5;i++){
-    cout <<"| A"<<i<< "       |"<< warehouseItems[i] <<"     |      "<<warehouseStks[i]<<"   |      "<<unitPrice[i]<<"|"<<endl;
+    cout <<"| A"<<i + 1<< "       |"<< warehouseItems[i] <<"     |      "<<warehouseStks[i]<<"   |      "<<unitPrice[i]<<"|"<<endl;
   }
     cout << "---------------------------------------------------"<<endl;
+  //Shelf block. 
+}
+void receipt_printer(double total_price){
+
+  cout << "------------------------------------------------"<<endl;
+  cout << "          [] BAHNHOFSTRASSE ®                   "<<endl;
+  cout <<endl;
+  cout << "                       SUBTOTAL: "<< total_price<<endl;
+  cout << "                            TAX: "<< "8.9 % "<<endl;
+  total_price = (1.089)*total_price;
+  cout << "                          TOTAL: "<< total_price<<endl;
+  cout << "---##                                      ##--    "<<endl;
+  cout<<endl;
+  cout << "        THANKS, [] BAHNHOFSTRASSE ® MErrrY XmaS."<<endl;
+  cout<<  "------------------------------------------------"<<endl;
+  cout << "------------------------------------------------"<<endl;
+  cout << "|<--        Bahnhostrasse® Department Store -->|"<<endl;
+  cout << "------------------------------------------------"<<endl;
+
+
 }
 void localizer(int quantity_Arry[]){
 
@@ -186,34 +208,23 @@ void localizer(int quantity_Arry[]){
   prize_shelf[3] = 12.99;
   prize_shelf[4] = 13.99;
    
-
   string warehouse_items[item_type];
   warehouse_items[0] = "Cloth's-Cl";
   warehouse_items[1] = "Watch-Delu";
   warehouse_items[2] = "Smartphnes";
   warehouse_items[3] = "Book-fictn";
   warehouse_items[4] = "Fast-foods";
-  
 
-  /* Now that I have gotten all the arrays, I send them to a print shelf function that prints kind of a shelf for them.*/
   shelf_display(prize_shelf ,warehouse_items,quantity_Arry );
-
+    
 }
-void shelf_display(double unitPrice[5], string warehouseItems[5], string warehouseStks[5]){
 
-  //Using loops to print the shelf to the User. 
-  for(int i = 0; i < 5;i++){
-
-
-
-  }
-}
 int buy_itemFromshelf(){
   /*This function asks the user the quanity of item the user wants to remove from the shelf.
   */ 
   int quantity_toTake = 0;//takes in the users quantity 
 
-  cout << "How many quantities of  are you buying-->  ";
+  cout << "How many quantities are you buying-->  ";
   cin >> quantity_toTake;
   cin.ignore();
 
@@ -321,7 +332,7 @@ string warehouseItems(string warehouseIndex, bool state ){
     warehouse_items[3] = "Books";
     warehouse_items[4] = "Fast food";
 
-  //**Add like 5 more arrays later and remember to change the arrays in char to input and stuffs later */ 
+  
 
 
   //The block of code evaluates the users input into array index which can be used to assess an array value.
@@ -346,17 +357,13 @@ string warehouseItems(string warehouseIndex, bool state ){
   return item_to_disp;
 
 }
-int warehouseStock(string warehouseIndex, int state, int send_shelf){//This contains the quantities of stock in the warehouse with the prize.
+static int warehouseStock(string warehouseIndex, int state, int send_shelf){//This contains the quantities of stock in the warehouse with the prize.
   const int item_type = 5;
   //correctshelfName(), evaluates the user input to the standard shelf index to prevent errors and let the code run perfectly +- 0.0001.
   warehouseIndex = correctshelfName(warehouseIndex);
  /*For compile reasons, this array is hard coded with predefined stuffs and also given the limited time we are supposed to this. */
-   int warehouse_items[item_type];
-    warehouse_items[0] = 4;
-    warehouse_items[1] = 3;
-    warehouse_items[2] = 2;
-    warehouse_items[3] = 2;
-    warehouse_items[4] = 3;
+    static int warehouse_items[item_type] = {4, 3, 2 ,2 ,3};
+   
 
   //The block of code evaluates the users input into array index which can be used to assess an array value.
   /* The numerical values of the row and column index are gotten and then assiged to int varibles*/
@@ -380,10 +387,10 @@ int warehouseStock(string warehouseIndex, int state, int send_shelf){//This cont
     take_quant_FromShelf = buy_itemFromshelf();//The quantity to take from the shelf is specified by calling the buy_itemFromshelf() function. 
  
     //This loops is used to iterate through the array to get the item the user is buying.
-    for(int i = 0; i < index_to_be_accessed; i++){
- 
-      warehouse_items[i] = warehouse_items[i]- take_quant_FromShelf;// updates the array by removing the quanity the user bought from the array. 
-
+    for(int i = 0; i <= index_to_be_accessed; i++){
+      
+      int temp = warehouse_items[i];
+      warehouse_items[i] =  temp - take_quant_FromShelf;// updates the array by removing the quanity the user bought from the array. 
     }
 
     return take_quant_FromShelf;//returns the quantity of the item the user bought.
@@ -406,7 +413,7 @@ int warehouseStock(string warehouseIndex, int state, int send_shelf){//This cont
 
     int yes_or_no = 0;//The variable is used to store the users choice. 
 
-    cout << "Do you want to add more quanties to the shelf Index--> (1)->Yes || (0)-->No >> " << endl;
+    cout << "Do you want to add more quanties to the shelf Index--> (1)->Yes || (0)-->No >> ";
     cin >> yes_or_no;
 
     if(yes_or_no == 1){
@@ -492,10 +499,19 @@ static void business_analytics(int state, double sales_per_session  /*, int item
 
 
 }
-void myStore_Backend(){
+void myStore_Backend(string employeeID){
 
-  /*This function stores the total sales per session 
-  and accumulates it till all the total sales is gotten.*/
+
+  int shelf_stock[5]; 
+  for(int i = 0; i < 5; i++){
+    shelf_stock[i] = warehouseStock("a1", 2, i);
+  }
+  cout<<endl;
+  localizer(shelf_stock);
+
+  cout << "You can add more Quantity to the shelf " << endl;
+  cout << endl;
+
     
   Stocker Cashier;// Instantiated the Stocker class
      
@@ -506,8 +522,14 @@ void myStore_Backend(){
   Cashier.shelf_select = Cashier.selectShelf();
   cout << warehouseItems(Cashier.shelf_select, state) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select, state, 0);//" " << warehouseStock(Cashier.shelf_select) << endl;
     
+  for(int i = 0; i < 5; i++){
+    shelf_stock[i] = warehouseStock("a1", 2, i);
+  }
+  cout<<endl;
+  localizer(shelf_stock);
+
     
-  //We want to know the total price in the array. time_per session . 
+  
 
   
     
@@ -522,16 +544,16 @@ double myStore_Frontend(){
 
   //This block of code gets the values of quantity array from warehouseStock function. 
   //to be used here to print a shelf. 
-  int shelf_stock[5]; 
+  static int shelf_stock[5]; 
   for(int i = 0; i < 5; i++){
     shelf_stock[i] = warehouseStock("a1", 2, i);
   }
   //
   cout<<endl;
+   
   //localizer function gets called to display the shelf to the user.
   localizer(shelf_stock);
 
-  /* Find a convenient way to print the shelf three arrays nicely and neatly, *///Dw, I will remind you tomorrow Godwilling
   //Also , the print receipt and arrays to store 
    
   int done =0;
@@ -539,6 +561,7 @@ double myStore_Frontend(){
   int exit_loop = 0;
 
   /*This loop is used in the shopping process of the user.  */
+  
 
   do{
 
@@ -569,54 +592,69 @@ double myStore_Frontend(){
       break; 
     }
    /* An array that stores the users bought item and then tracks that with the price and prints a receipt. */ 
-
    //Business Analytics is called to store the total sales per session.
-     business_analytics(0 ,Client.receipt_bill);
+    business_analytics(0 ,Client.receipt_bill);
 
   }while(exit_loop != 1);
+  cout<<endl;
+  cout << "Your Receipt.. "<<endl;
+  cout <<endl;
+  //Prints receipt to the User.
+  receipt_printer(Client.receipt_bill);
+  cout << endl;
+  cout <<endl;
+
+    
 
   
-
-  
-   return Client.receipt_bill;
+  return Client.receipt_bill;
 }
 static void programStore(){
-  int users_selection;
+  int users_selection = 0;
 
-  do{
-  cout << "<--Hello Welcome to Bahnhostrasse® Department Store -->"<<endl;
-  cout << endl;
-  cout <<" Hello!! select 1 if you are Customer. |"<<" Select 2 if you are an Employee | Select 3 if you are the manager"<<endl;
-  cout <<"Enter you selection --> ";
-  cin >> users_selection;
+  while(users_selection == 0){
 
-  }while(users_selection != 1 || users_selection !=2);
+    cout << "---------------------------------------------------------"<<endl;
+    cout << "|<--Hello Welcome to Bahnhostrasse® Department Store -->|"<<endl;
+    cout << "---------------------------------------------------------"<<endl;
+    cout << endl;
+    cout <<" Hello!! select 1 if you are Customer. |"<<" Select 2 if you are an Employee | Select 3 if you are the manager"<<endl;
+    cout <<"Enter you selection --> ";
+    cin >> users_selection;
+
+    cout << endl;
+
+  }
 
   switch (users_selection)
   {
   case 1:
+    cout << "Welcome to Bahnhofstrasse, Customer ®"<<endl;
+    cout<<endl;
     myStore_Frontend();
 
   break;
   
   case 2:
-    myStore_Backend();    
-    break;
+    cout << "Welcome to Banhofstrasse, Employee ®"<<endl;
+    cout<<endl;
+    myStore_Backend(check_employee());    
+  break;
   }
 
-
+  programStore();
   
 }
 int main(){
-
   int not_exit = 1;
 
   while( not_exit == 1){
 
     programStore();
 
-  }
-    
+  } 
+  
+
   return 0;
 }
 bool authorizing_user(){
@@ -647,3 +685,18 @@ int random_generator(){
   srand(time(NULL)); //seed the random library with the current time
   return rand() % 3452;// returns a generated random number. 
 }
+string check_employee(){
+  
+  string employee_Id;
+  cout << "Welcome employee, Please get Enter you Employee ID ,below "<<endl;
+  cout <<" -----------------"<<endl;
+  cout <<" Enter ID -->   ";
+  cin >> employee_Id;
+  cout <<" -----------------"<<endl;
+  
+  return employee_Id;
+}
+
+
+
+
