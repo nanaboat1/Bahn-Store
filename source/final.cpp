@@ -161,41 +161,19 @@ public:
     }
   /*For the Profits Method, I have to be really critical of this. I will do this after I have found how the code is going to work. */
 };
+void shelf_display(double unitPrice[5], string warehouseItems[5], int warehouseStks[5]){
 
-
- int testarray(int index_required , int state){ 
-
-  int warehouse_items[5];
-  warehouse_items[0] = 4;
-  warehouse_items[1] = 2;
-  warehouse_items[2] = 2;
-  warehouse_items[3] = 5;
-  warehouse_items[4] = 3;
-
-      
-  if(0){
-  
-    for(int i = index_required; i < index_required+1; i++){
-        //take_wareHouseStock_to_localizer(warehouse_items[i]);
-        return warehouse_items[i];
-    }
+  //Using loops to print the shelf to the User. 
+    cout << "---------------------------------------------------"<<endl;
+    cout << "SHELF-INDEX| ITEM NAME     | QUANTITY | UNIT PRICE|"<<endl;
+    cout << "---------------------------------------------------"<<endl;
+  for(int i = 0; i < 5;i++){
+    cout <<"| A"<<i<< "       |"<< warehouseItems[i] <<"     |      "<<warehouseStks[i]<<"   |      "<<unitPrice[i]<<"|"<<endl;
   }
-  else{
-     
-    for(int i = 0; i < 5; i++){
-
-      warehouse_items[i] = index_required;
-    }
-
-    for(int i = index_required; i < index_required+1; i++){
-        //take_wareHouseStock_to_localizer(warehouse_items[i]);
-        return warehouse_items[i];
-    }
-  }
-
+    cout << "---------------------------------------------------"<<endl;
 }
+void localizer(int quantity_Arry[]){
 
-void localizer(){
   /*This function localizes all the arrays to enhance printing during complile time */
   //Because the arrays of Unit_price and Item list are standard and they do not change, they will
   // be coded brute forcely, Also I am new to this and dont want errors beyond my scope, thats why they are hard
@@ -204,35 +182,23 @@ void localizer(){
   double prize_shelf[item_type];
   prize_shelf[0] = 17.99;
   prize_shelf[1] = 35.99;
-  prize_shelf[2] = 499.99;
+  prize_shelf[2] = 99.99;
   prize_shelf[3] = 12.99;
   prize_shelf[4] = 13.99;
-  /*more arrays will be added*/ 
+   
 
   string warehouse_items[item_type];
-  warehouse_items[0] = "Cloth's";
-  warehouse_items[1] = "Watch";
-  warehouse_items[2] = "Smartphones";
-  warehouse_items[3] = "Books";
-  warehouse_items[4] = "Fast food";
-  /* more arrays will be added */
+  warehouse_items[0] = "Cloth's-Cl";
+  warehouse_items[1] = "Watch-Delu";
+  warehouse_items[2] = "Smartphnes";
+  warehouse_items[3] = "Book-fictn";
+  warehouse_items[4] = "Fast-foods";
+  
 
   /* Now that I have gotten all the arrays, I send them to a print shelf function that prints kind of a shelf for them.*/
-  int quantity_array[item_type];
-
-   for(int i =0; i < item_type; i++){
-
-    quantity_array[i] = testarray(i,0); 
-  
-  } 
-
-  for(int i = 0; i < 5; i ++){
-
-    cout << quantity_array[i] << " ";
-  }
+  shelf_display(prize_shelf ,warehouse_items,quantity_Arry );
 
 }
-
 void shelf_display(double unitPrice[5], string warehouseItems[5], string warehouseStks[5]){
 
   //Using loops to print the shelf to the User. 
@@ -262,7 +228,6 @@ int quantity_add(){
   return add_quant;
 }
 //This lists of functions, consists of the shelfs of the store and function manipulators that helps access the shelf array based on the users input.
-//This function helps the stocker to add quanity amount to the shelf.
 char chartoNum(char ch){
   if( static_cast<int>(ch)>=48&&static_cast<int>(ch)<58){//returns the numbers if user input are numbers
     return ch;//returns the ch when the input is a number.
@@ -381,7 +346,6 @@ string warehouseItems(string warehouseIndex, bool state ){
   return item_to_disp;
 
 }
-
 int warehouseStock(string warehouseIndex, int state, int send_shelf){//This contains the quantities of stock in the warehouse with the prize.
   const int item_type = 5;
   //correctshelfName(), evaluates the user input to the standard shelf index to prevent errors and let the code run perfectly +- 0.0001.
@@ -426,20 +390,20 @@ int warehouseStock(string warehouseIndex, int state, int send_shelf){//This cont
   }
   else if( state == 1){
     //This block of code runs  only for the Stocker class, when the bool state is false.
-
+    //and it is done to check quantity in an array and add more and nothing else. 
     //cout << index_to_be_accessed << endl;This line of code is used for testing purposes. 
 
     //this variables displays the quantity of the specific shelf to the user.
 
-    //The loops displays the specific warehouse shelf Item quanity asked for.
+    //The loopdisplays the specific warehouse shelf Item quanity asked for.
     for(int i = 0; i <=index_to_be_accessed; i++){
       quantity_to_disp = warehouse_items[i];
     }
-
     cout << "Quantity is " << quantity_to_disp << endl;
   
     /* This block of code will ask the Stocker is she wants to add extra quantity of the item to the specific shelf 
     If the user opts not to add more quantities to the shelf the shel wont increase but if she opts to then it will increase*/
+
     int yes_or_no = 0;//The variable is used to store the users choice. 
 
     cout << "Do you want to add more quanties to the shelf Index--> (1)->Yes || (0)-->No >> " << endl;
@@ -459,11 +423,12 @@ int warehouseStock(string warehouseIndex, int state, int send_shelf){//This cont
     } 
   }
   else{
+     //I devised a smart way to send to return all the array values to another function. It's crazy but it works!!
       return warehouse_items[send_shelf];
   }
-  return quantity_to_disp;
+  return quantity_to_disp;//return value for expression on ln 427.
 }
-//This functions help convert the users input into int values to help access the shelf arrays.
+//The following functions help convert the users input into int values to help access the shelf arrays.
 int numerical_Value_ofRowindex(char convert_rowchar_toInt){
   /*This function converts the rowIndex char gotten from shelfname_stringtoChar_Row to its corresponding ASCII value (integer value)
   */
@@ -514,12 +479,11 @@ static void business_analytics(int state, double sales_per_session  /*, int item
     //when the state is zero then business_analytics function get's called by mystore_frontend()
     case 0: 
       Manager.total_sales(sales_per_session);
-      //Manager.total_itemspurchased_session(item_purchased_perSession);
-      // The above methods of the classes are called to store the total sales and total item per session.
+      // The above methods of the object is called to store the total sales and total item per session.
     break;
     case 1:
       //when the state is 1 then the business_analytics function processes the the needs of mystore_backend()
-      //display report to the cashier when she automatically.  for it. 
+      
     break;
  
   }
@@ -530,37 +494,42 @@ static void business_analytics(int state, double sales_per_session  /*, int item
 }
 void myStore_Backend(){
 
-  /*This function stores the total sales per session and accumulates it till all the total sales is gotten.  */
+  /*This function stores the total sales per session 
+  and accumulates it till all the total sales is gotten.*/
     
-    Stocker Cashier;// Instantiated the Stocker class
-    
-    /* The selectshelf method of Class Stocker is instatiated here and the return value of the shelfselect method is passed to the datafield (shelf_select)  
-    */  
-    //Calls the authorising function to validate the user. 
-    Cashier.authorising();
-    int state = 1;//used to alternate between different functions in warehouse stock. 
-    /* The Cashier needs to know the warehouse items hence the array will be displayed to the user first */
-    Cashier.shelf_select = Cashier.selectShelf();
-    cout << warehouseItems(Cashier.shelf_select, state) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select, state, 0);//" " << warehouseStock(Cashier.shelf_select) << endl;
+  Stocker Cashier;// Instantiated the Stocker class
+     
+  //Calls the authorising function to validate the user. 
+  Cashier.authorising();
+  int state = 1;//used to alternate between different processes in warehouse stock. 
+  /* The Cashier needs to know the warehouse items hence the array will be displayed to the user first */
+  Cashier.shelf_select = Cashier.selectShelf();
+  cout << warehouseItems(Cashier.shelf_select, state) << ":"/*<< " :Quanitiy is --> " */<< endl <</*"New Quanity is-->"<< */warehouseStock(Cashier.shelf_select, state, 0);//" " << warehouseStock(Cashier.shelf_select) << endl;
     
     
-    //We want to know the total price in the array. time_per session . 
+  //We want to know the total price in the array. time_per session . 
 
-    /*My store the program is the cashier right .
-    And  in the store we have a customer and a stocker
-    and a way to print the items in the store nicely and a shelf name so that when the user enters a specific value of the shelf 
-    it can bring the items of the shelf then the user chooses the quantity he or she wants to buy. 
-    */
+  
     
 }
-void myStore_Frontend(){
+double myStore_Frontend(){
 
   int state = 0;//this state is used to access the the warehouse and call specific functions based on this state.
   Customer Client; 
 
   //Calls the authorizing user method of the class.
   Client.authorizing();
- 
+
+  //This block of code gets the values of quantity array from warehouseStock function. 
+  //to be used here to print a shelf. 
+  int shelf_stock[5]; 
+  for(int i = 0; i < 5; i++){
+    shelf_stock[i] = warehouseStock("a1", 2, i);
+  }
+  //
+  cout<<endl;
+  //localizer function gets called to display the shelf to the user.
+  localizer(shelf_stock);
 
   /* Find a convenient way to print the shelf three arrays nicely and neatly, *///Dw, I will remind you tomorrow Godwilling
   //Also , the print receipt and arrays to store 
@@ -583,11 +552,8 @@ void myStore_Frontend(){
     Client.addToBill(unitprice(Client.shelf_select)*warehouseStock(Client.shelf_select, state,0)); 
 
     // Also, find ways you are going to store the users selection in an array so that u can print a receipt from it 
-    //The shelf needs to printed here first. Then the user selects the array where he wants to pick up something
     //then when the thing is picked it gets updated in the array. 
     
-    
-     
     //print receipt, buy stuffs call. stocker. customer rating. Authorizing .
     
    
@@ -611,40 +577,48 @@ void myStore_Frontend(){
 
   
 
-  int shelf_stock[5];
-  //0 for the connector. 
-  //cout << Client.receipt_bill << endl;
-  for(int i = 0; i < 5; i++){
-    shelf_stock[i] = warehouseStock("a1", 2, i);
-  }
-
-  for(int i = 0; i < 5; i ++){
-    cout << shelf_stock[i]<<" ";
-  }
-
+  
+   return Client.receipt_bill;
 }
+static void programStore(){
+  int users_selection;
 
-void programStore(){
-    /*The store has two interfaces, a backend and a frontend
-     .The backend is only asssed by the cahshier and the front end is assessed by the customer
-     The backend and the front end asess the same shelf, but both have different functions . So , I used a bool called state to alternate between their individual functions*/
-     /* Depending on what the user does, after authorizing, then  it determines whether the user gets my_storeBackend or my_storeFrontend functions. */
-      
-      //1 for the connector. 
-}
+  do{
+  cout << "<--Hello Welcome to Bahnhostrasse® Department Store -->"<<endl;
+  cout << endl;
+  cout <<" Hello!! select 1 if you are Customer. |"<<" Select 2 if you are an Employee | Select 3 if you are the manager"<<endl;
+  cout <<"Enter you selection --> ";
+  cin >> users_selection;
 
-int main(){
-   /* int program = 1;
-    while(program != 0){
+  }while(users_selection != 1 || users_selection !=2);
 
-      myStore_Frontend();
-
-    } */
+  switch (users_selection)
+  {
+  case 1:
     myStore_Frontend();
-    
-    return 0;
-}
 
+  break;
+  
+  case 2:
+    myStore_Backend();    
+    break;
+  }
+
+
+  
+}
+int main(){
+
+  int not_exit = 1;
+
+  while( not_exit == 1){
+
+    programStore();
+
+  }
+    
+  return 0;
+}
 bool authorizing_user(){
 
   cout << "Hello, User welcome to the Store. To be able to access the store, we need to verify you are not a robot "<<endl;//gives information to the user about this step. 
@@ -661,13 +635,13 @@ bool authorizing_user(){
     cin >> users_check; 
     
   }while(users_check !=_validator);
+
   cout <<"-----------------------------------------"<<endl;
   cout <<"*****************************************"<<endl;
  
   
   return true; // returns true so that 
 }
-
 int random_generator(){
   /*This function generates a random number by calling the rand function and returns the int  */ 
   srand(time(NULL)); //seed the random library with the current time
