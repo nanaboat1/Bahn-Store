@@ -773,7 +773,7 @@ static void business_analytics( int state, double session){
 
     //when the business analytics class is called in the program store function.
 
-    cout << " Manager, Current Total sales is -->  " << total_sales << "Bahnhofstrasses [] " << endl;
+    cout << " Manager, Current Total sales is -->  " << total_sales << "  Bahnhofstrasses [] " << endl;
     cout <<endl;
     cout << endl;
   }
