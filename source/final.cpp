@@ -22,6 +22,8 @@ static void business_analytics( int state, double session);
 
 class  Customer{
 public:
+
+
   bool authorization; // gives authorization to the customer to buy things from the store 
   double receipt_bill; //stores the total purchase of the customer
   int cash_rewards; //a promotional something, I have not figured it out so do not ask me what it does. 
@@ -29,8 +31,11 @@ public:
   int key;//stores authorizing key to validate the user. 
   string shelf_select;
 
+
   //Constructor 
   Customer(){
+
+
     authorization = false;
     receipt_bill = 0.00;
     cash_rewards = 0.00;
@@ -49,15 +54,12 @@ public:
 
   int ratings(){ 
 
-    if(authorization){
-      cout << " How was your experience today shopping with us. Please rate us from 1 to 5 :) "<<endl;
-      cin >> customer_ratings;    
-      return customer_ratings;
-    }
-    else{
-      customer_ratings = 0;
-      return customer_ratings;
-    }
+    
+    cout << " How was your experience today shopping with us. Please rate us from 1 to 5 :)  -->  ";
+    cin >> customer_ratings;    
+    return customer_ratings;
+    
+    
   }
 
   int cashRewards(){
@@ -681,6 +683,12 @@ double myStore_Frontend(){
   receipt_printer(Client.receipt_bill);
   cout << endl;
   cout <<endl;
+  Client.ratings();
+  cout<<endl;
+  cout << "----------------"<<endl;
+  cout <<"|Session End... |"<<endl;
+  cout << "----------------"<<endl;
+  cout<<endl;
 
   return Client.receipt_bill;//The total bill of the user.//Could do something cool with this in business analytics. 
 }
