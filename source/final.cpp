@@ -614,6 +614,12 @@ void myStore_Backend(string employeeID){
 
   localizer(shelf_stock);
 
+  cout << "----------------"<<endl;
+  cout <<"|Session End... |"<<endl;
+  cout << "----------------"<<endl;
+
+  cout<<endl;
+
     
  
 }
